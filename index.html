@@ -5,48 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GREENGENZ BAG - Carry Your Style, Express Your Identity</title>
     <style>
-        /* Reset dan Font */
+        /* Import Font dari Google Fonts untuk typography yang lebih baik */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        /* Reset dan Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
+            color: #2d3748;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 50%, #d4edda 100%);
+            overflow-x: hidden;
         }
 
-        /* Loading Screen */
+        /* Loading Screen dengan animasi yang lebih smooth */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #81C784 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .loading-content {
             text-align: center;
             color: white;
+            animation: fadeInUp 1s ease-out;
         }
 
         .spinner {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border: 4px solid rgba(255, 255, 255, 0.3);
             border-top: 4px solid white;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            animation: spin 1.2s linear infinite;
+            margin: 0 auto 25px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         @keyframes spin {
@@ -54,24 +64,46 @@
             100% { transform: rotate(360deg); }
         }
 
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .loading-title {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .loading-subtitle {
-            font-size: 1rem;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
         }
 
-        /* Navbar */
+        /* Navbar dengan efek glassmorphism dan animasi */
         .navbar {
             position: fixed;
             top: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
 
         .nav-container {
@@ -86,154 +118,474 @@
 
         .nav-logo h1 {
             color: #4CAF50;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo p {
+            font-size: 0.85rem;
+            color: #68D391;
+            font-weight: 500;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
+            gap: 30px;
         }
 
         .nav-link {
-            margin: 0 15px;
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+            padding: 8px 0;
         }
 
-        .nav-link.active, .nav-link:hover {
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
             color: #4CAF50;
+            transform: translateY(-2px);
         }
 
-        /* Hero */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #2d3748;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section dengan efek parallax dan animasi */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
-            padding-top: 70px;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 50%, #d4edda 100%);
+            padding: 120px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%234CAF50" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="%2366BB6A" opacity="0.1"/><circle cx="60" cy="80" r="1" fill="%2381C784" opacity="0.1"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out 0.5s both;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: #2d3748;
+            line-height: 1.2;
         }
 
         .hero span {
-            color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Buttons */
+        .hero p {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: #4a5568;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        /* Button Styles dengan efek hover yang lebih menarik */
         .btn-primary, .btn-secondary {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #4CAF50;
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
             color: white;
             text-decoration: none;
-            border-radius: 25px;
-            transition: background 0.3s;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before, .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before, .btn-secondary:hover::before {
+            left: 100%;
         }
 
         .btn-primary:hover, .btn-secondary:hover {
-            background: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
         }
 
         .btn-secondary {
-            background: #66BB6A;
+            background: linear-gradient(135deg, #66BB6A, #81C784);
+            box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
         }
 
-        /* Sections */
+        /* Container dan Grid System */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 80px 20px;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
         }
 
         .product-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         .product-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
         }
 
         .product-card h3, .product-card h4 {
-            margin: 15px;
-            color: #333;
+            margin: 20px 20px 10px;
+            color: #2d3748;
+            font-weight: 700;
         }
 
         .product-card p {
-            margin: 0 15px 15px;
-            color: #666;
+            margin: 0 20px 20px;
+            color: #718096;
+            font-size: 0.95rem;
         }
 
         .product-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background: #f9f9f9;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-top: 1px solid #dee2e6;
         }
 
         .price {
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 1.3rem;
+            font-weight: 800;
             color: #4CAF50;
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .about h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .about p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #718096;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .about-card {
+            background: linear-gradient(135deg, #f0f9f0, #e8f5e8);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .about-card h3 {
+            color: #4CAF50;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .about-card p {
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #2d3748, #4a5568);
+            color: white;
+            padding: 100px 0;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
         }
 
         /* Footer */
         .footer {
-            background: #2E7D32;
+            background: linear-gradient(135deg, #1a202c, #2d3748);
             color: white;
-            padding: 40px 0;
+            padding: 60px 0 30px;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        .footer h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
         .footer ul {
             list-style: none;
         }
 
-        .footer a {
-            color: white;
-            text-decoration: none;
+        .footer li {
+            margin-bottom: 10px;
         }
 
-        /* Responsive */
+        .footer a {
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #4CAF50;
+        }
+
+        .footer .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #4a5568;
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design - Mobile First */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                gap: 15px;
             }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
             .products-grid {
                 grid-template-columns: 1fr;
+                gap: 30px;
             }
+
+            .product-card {
+                max-width: 100%;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .container {
+                padding: 60px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                padding: 14px 28px;
+                font-size: 1rem;
+            }
+
+            .product-card h3, .product-card h4 {
+                font-size: 1.2rem;
+            }
+
+            .price {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Animasi untuk sections */
+        .section-fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
         }
     </style>
 </head>
@@ -250,20 +602,20 @@
 
     <!-- Background Audio -->
     <!-- UBAH BACKSOUND: Ganti src dengan URL backsound menenangkan Anda (pastikan URL valid dan file audio) -->
-    <audio id="background-audio" loop>
+   <audio id="background-audio" loop>
         <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
         Browser Anda tidak mendukung audio.
     </audio>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <!-- UBAH NAMA BRAND: Edit teks di bawah ini untuk mengubah nama brand -->
                 <h1>GREENGENZ BAG</h1>
                 <p>Carry Your Style</p>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="nav-menu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#produk" class="nav-link">Produk</a></li>
                 <li><a href="#tentang" class="nav-link">Tentang Kami</a></li>
@@ -278,7 +630,7 @@
     </nav>
 
     <!-- Home Section -->
-    <section id="home" class="hero">
+    <section id="home" class="hero section-fade-in">
         <div class="hero-content">
             <!-- UBAH TEKS HERO: Edit teks sambutan di bawah ini -->
             <h1>SELAMAT DATANG DI <span>GREENGENZ BAG</span></h1>
@@ -289,11 +641,11 @@
     </section>
 
     <!-- Best Sellers -->
-    <section class="best-sellers">
+    <section class="best-sellers section-fade-in">
         <div class="container">
             <!-- UBAH TEKS BEST SELLERS: Edit judul dan deskripsi di bawah ini -->
-            <h2>Best Sellers Kami</h2>
-            <p>Pilihan yang paling disukai pelanggan kami</p>
+            <h2 class="text-center mb-20">Best Sellers Kami</h2>
+            <p class="text-center mb-40">Pilihan yang paling disukai pelanggan kami</p>
             <div class="products-grid">
                 <!-- PRODUK BEST SELLER 1: Untuk menambah/hapus produk, copy-paste div ini. Ganti nama, deskripsi, harga, foto, dan link WhatsApp -->
                 <div class="product-card">
@@ -336,11 +688,11 @@
     </section>
 
     <!-- Produk Section -->
-    <section id="produk" class="products">
+    <section id="produk" class="products section-fade-in">
         <div class="container">
             <!-- UBAH TEKS PRODUK: Edit judul dan deskripsi di bawah ini -->
-            <h2>Produk Lengkap Kami</h2>
-            <p>Jelajahi produk kami lainnya</p>
+            <h2 class="text-center mb-20">Produk Lengkap Kami</h2>
+            <p class="text-center mb-40">Jelajahi produk kami lainnya</p>
             <div class="categories">
                 <!-- KATEGORI 1: Backpacks - Untuk menambah kategori baru, copy-paste div category ini -->
                 <div class="category">
@@ -381,7 +733,7 @@
     </section>
 
     <!-- Tentang Section -->
-    <section id="tentang" class="about">
+    <section id="tentang" class="about section-fade-in">
         <div class="container">
             <!-- UBAH TEKS TENTANG: Edit judul dan deskripsi di bawah ini -->
             <h2>Tentang GREENGENZ BAG</h2>
@@ -402,7 +754,7 @@
     </section>
 
     <!-- Kontak Section -->
-    <section id="kontak" class="contact">
+    <section id="kontak" class="contact section-fade-in">
         <div class="container">
             <!-- UBAH TEKS KONTAK: Edit judul dan deskripsi di bawah ini -->
             <h2>HAI HAI</h2>
@@ -446,43 +798,117 @@
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+            <div class="copyright">
                 <p>&copy; 2024 GREENGENZ BAG. All rights reserved. Made with 💚 for eco-conscious style.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Loading Screen
+        // Loading Screen dengan animasi yang lebih smooth
         window.addEventListener('load', function() {
             setTimeout(function() {
-                document.getElementById('loading-screen').style.opacity = '0';
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.opacity = '0';
                 setTimeout(function() {
-                    document.getElementById('loading-screen').style.display = 'none';
-                }, 500);
-            }, 2000); // 2 detik loading
+                    loadingScreen.style.display = 'none';
+                }, 800);
+            }, 2500); // 2.5 detik loading untuk efek yang lebih baik
         });
 
-        // Backsound
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Backsound dengan kontrol yang lebih baik
         document.addEventListener('DOMContentLoaded', function() {
             const audio = document.getElementById('background-audio');
-            audio.volume = 0.3; // Volume rendah agar tidak mengganggu
-            audio.play().catch(e => console.log('Audio autoplay blocked'));
-        });
-
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+            audio.volume = 0.2; // Volume lebih rendah untuk kenyamanan
+            
+            // Coba autoplay, jika gagal beri opsi manual
+            audio.play().catch(e => {
+                console.log('Audio autoplay blocked - user interaction required');
+                // Bisa tambahkan tombol play manual jika diperlukan
             });
         });
 
-        // Mobile Menu Toggle (jika diperlukan)
-        document.getElementById('nav-toggle').addEventListener('click', function() {
-            document.querySelector('.nav-menu').classList.toggle('active');
+        // Smooth Scroll untuk semua link internal
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 70; // Offset untuk navbar fixed
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle dengan animasi
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            // Animasi hamburger menu
+            this.classList.toggle('active');
+        });
+
+        // Tutup menu mobile saat klik link
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            });
+        });
+
+        // Intersection Observer untuk animasi fade-in sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe semua sections kecuali hero
+        document.querySelectorAll('section:not(#home)').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Update active nav link saat scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
