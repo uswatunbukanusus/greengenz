@@ -6,7 +6,7 @@
     <title>GREENGENZ BAG - Carry Your Style, Express Your Identity</title>
     <style>
         /* Import Font dari Google Fonts untuk typography yang lebih baik */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
         /* Reset dan Base Styles */
         * {
@@ -23,72 +23,104 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             color: #2d3748;
-            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 50%, #d4edda 100%);
+            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 25%, #d4edda 50%, #c3e6cb 75%, #b8daff 100%);
             overflow-x: hidden;
+            animation: backgroundShift 20s ease-in-out infinite alternate;
         }
 
-        /* Loading Screen dengan animasi yang lebih smooth */
+        @keyframes backgroundShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Loading Screen dengan animasi yang lebih smooth dan menarik */
         .loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #81C784 100%);
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 25%, #81C784 50%, #A5D6A7 75%, #C8E6C9 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
         }
 
         .loading-content {
             text-align: center;
             color: white;
-            animation: fadeInUp 1s ease-out;
+            animation: bounceIn 1.5s ease-out;
         }
 
         .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
+            width: 80px;
+            height: 80px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top: 6px solid white;
             border-radius: 50%;
-            animation: spin 1.2s linear infinite;
-            margin: 0 auto 25px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            animation: spin 1.5s linear infinite, pulse 2s ease-in-out infinite;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
-        @keyframes fadeInUp {
-            from {
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        @keyframes bounceIn {
+            0% {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: scale(0.3) translateY(50px);
             }
-            to {
+            50% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1.05) translateY(-10px);
+            }
+            70% {
+                transform: scale(0.9) translateY(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
             }
         }
 
         .loading-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+            to { text-shadow: 0 4px 8px rgba(255, 255, 255, 0.5); }
         }
 
         .loading-subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
+            font-size: 1.4rem;
+            font-weight: 400;
             opacity: 0.9;
+            animation: fadeInOut 3s ease-in-out infinite;
         }
 
-        /* Navbar dengan efek glassmorphism dan animasi */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* Navbar dengan efek glassmorphism dan animasi yang lebih kompleks */
         .navbar {
             position: fixed;
             top: 0;
@@ -97,13 +129,16 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
         }
 
         .navbar.scrolled {
             background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(30px);
+            transform: translateY(-2px);
         }
 
         .nav-container {
@@ -118,31 +153,59 @@
 
         .nav-logo h1 {
             color: #4CAF50;
-            font-size: 1.8rem;
-            font-weight: 800;
+            font-size: 2rem;
+            font-weight: 900;
             letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .nav-logo p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #68D391;
-            font-weight: 500;
+            font-weight: 600;
+            margin-top: -5px;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 40px;
         }
 
         .nav-link {
             text-decoration: none;
             color: #2d3748;
-            font-weight: 600;
-            font-size: 1rem;
+            font-weight: 700;
+            font-size: 1.1rem;
             position: relative;
-            transition: all 0.3s ease;
-            padding: 8px 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.1), rgba(102, 187, 106, 0.1));
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before {
+            left: 0;
         }
 
         .nav-link::after {
@@ -151,9 +214,10 @@
             bottom: 0;
             left: 0;
             width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #4CAF50, #66BB6A);
-            transition: width 0.3s ease;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A, #81C784);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
         }
 
         .nav-link:hover::after,
@@ -163,32 +227,53 @@
 
         .nav-link:hover {
             color: #4CAF50;
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.05);
+            text-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
         }
 
         .nav-toggle {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 4px;
-        }
-
-        .nav-toggle span {
-            width: 25px;
-            height: 3px;
-            background: #2d3748;
+            gap: 5px;
+            padding: 10px;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        /* Hero Section dengan efek parallax dan animasi */
+        .nav-toggle:hover {
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .nav-toggle span {
+            width: 28px;
+            height: 3px;
+            background: #2d3748;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 2px;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Hero Section dengan efek parallax dan animasi yang lebih kompleks */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 50%, #d4edda 100%);
-            padding: 120px 20px 80px;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 25%, #d4edda 50%, #c3e6cb 75%, #b8daff 100%);
+            padding: 140px 20px 100px;
             position: relative;
             overflow: hidden;
         }
@@ -200,52 +285,111 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%234CAF50" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="%2366BB6A" opacity="0.1"/><circle cx="60" cy="80" r="1" fill="%2381C784" opacity="0.1"/></svg>');
-            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(102, 187, 106, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(129, 199, 132, 0.1) 0%, transparent 50%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
         }
 
         .hero-content {
-            max-width: 800px;
-            animation: fadeInUp 1s ease-out 0.5s both;
+            max-width: 900px;
+            animation: slideInFromBottom 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes slideInFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 25px;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 30px;
             color: #2d3748;
-            line-height: 1.2;
+            line-height: 1.1;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: textReveal 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+        }
+
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .hero span {
-            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            background: linear-gradient(135deg, #4CAF50, #66BB6A, #81C784, #A5D6A7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .hero p {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
             color: #4a5568;
-            margin-bottom: 40px;
-            font-weight: 400;
+            margin-bottom: 50px;
+            font-weight: 500;
+            animation: fadeInUp 1s ease-out 0.8s both;
         }
 
-        /* Button Styles dengan efek hover yang lebih menarik */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button Styles dengan efek hover yang lebih menarik dan animasi */
         .btn-primary, .btn-secondary {
             display: inline-flex;
             align-items: center;
-            padding: 16px 32px;
+            padding: 18px 36px;
             background: linear-gradient(135deg, #4CAF50, #66BB6A);
             color: white;
             text-decoration: none;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
             position: relative;
             overflow: hidden;
+            animation: btnFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes btnFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
 
         .btn-primary::before, .btn-secondary::before {
@@ -255,8 +399,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
         }
 
         .btn-primary:hover::before, .btn-secondary:hover::before {
@@ -264,36 +408,61 @@
         }
 
         .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.5);
+        }
+
+        .btn-primary:active, .btn-secondary:active {
+            transform: translateY(-2px) scale(1.02);
         }
 
         .btn-secondary {
             background: linear-gradient(135deg, #66BB6A, #81C784);
-            box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
+            box-shadow: 0 6px 20px rgba(102, 187, 106, 0.4);
         }
 
         /* Container dan Grid System */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 100px 20px;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
         }
 
         .product-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            border: 2px solid transparent;
+            animation: cardEntrance 0.8s ease-out both;
+        }
+
+        .product-card:nth-child(odd) {
+            animation-delay: 0.1s;
+        }
+
+        .product-card:nth-child(even) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .product-card::before {
@@ -302,10 +471,11 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            height: 6px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A, #81C784, #A5D6A7);
             transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
+            border-radius: 25px 25px 0 0;
         }
 
         .product-card:hover::before {
@@ -313,158 +483,356 @@
         }
 
         .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px) scale(1.03) rotate(1deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border-color: #4CAF50;
         }
 
         .product-card img {
             width: 100%;
-            height: 220px;
+            height: 240px;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 23px 23px 0 0;
         }
 
         .product-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.1) rotate(-1deg);
+            filter: brightness(1.1) contrast(1.1);
         }
 
-        .product-card h3, .product-card h4 {
-            margin: 20px 20px 10px;
+                .product-card h3, .product-card h4 {
+            margin: 25px 25px 15px;
             color: #2d3748;
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover h3, .product-card:hover h4 {
+            color: #4CAF50;
+            animation: textBounce 0.6s ease;
+        }
+
+        @keyframes textBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
         }
 
         .product-card p {
-            margin: 0 20px 20px;
+            margin: 0 25px 25px;
             color: #718096;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover p {
+            color: #4a5568;
         }
 
         .product-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border-top: 1px solid #dee2e6;
+            border-top: 2px solid #dee2e6;
+            position: relative;
+        }
+
+        .product-footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A, #81C784);
         }
 
         .price {
-            font-size: 1.3rem;
-            font-weight: 800;
+            font-size: 1.4rem;
+            font-weight: 900;
             color: #4CAF50;
+            animation: priceGlow 2s ease-in-out infinite alternate;
         }
 
-        /* About Section */
+        @keyframes priceGlow {
+            from { text-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
+            to { text-shadow: 0 0 15px rgba(76, 175, 80, 0.6); }
+        }
+
+        /* About Section dengan animasi yang lebih menarik */
         .about {
-            background: white;
-            padding: 100px 0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 90%, rgba(76, 175, 80, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 10%, rgba(102, 187, 106, 0.05) 0%, transparent 50%);
+            animation: aboutFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes aboutFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.02); }
         }
 
         .about h2 {
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 25px;
             color: #2d3748;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: titleSlide 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        @keyframes titleSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .about p {
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #718096;
-            max-width: 700px;
-            margin: 0 auto 60px;
+            max-width: 800px;
+            margin: 0 auto 70px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
         .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
         }
 
         .about-card {
-            background: linear-gradient(135deg, #f0f9f0, #e8f5e8);
-            padding: 40px 30px;
-            border-radius: 20px;
+            background: linear-gradient(135deg, #f0f9f0, #e8f5e8, #d4edda);
+            padding: 50px 40px;
+            border-radius: 25px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 2px solid rgba(76, 175, 80, 0.1);
+            animation: cardFlip 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .about-card:nth-child(1) { animation-delay: 0.2s; }
+        .about-card:nth-child(2) { animation-delay: 0.4s; }
+
+        @keyframes cardFlip {
+            from {
+                opacity: 0;
+                transform: rotateY(90deg) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: rotateY(0deg) scale(1);
+            }
         }
 
         .about-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.05) rotate(2deg);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border-color: #4CAF50;
         }
 
         .about-card h3 {
             color: #4CAF50;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .about-card:hover h3 {
+            color: #2d3748;
+            animation: colorShift 0.5s ease;
+        }
+
+        @keyframes colorShift {
+            0% { color: #4CAF50; }
+            50% { color: #66BB6A; }
+            100% { color: #2d3748; }
         }
 
         .about-card p {
             color: #4a5568;
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
         }
 
-        /* Contact Section */
+        .about-card:hover p {
+            color: #2d3748;
+        }
+
+        /* Contact Section dengan efek yang lebih dramatis */
         .contact {
-            background: linear-gradient(135deg, #2d3748, #4a5568);
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 50%, #1a202c 100%);
             color: white;
-            padding: 100px 0;
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(102, 187, 106, 0.1) 0%, transparent 50%);
+            animation: contactPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes contactPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
         }
 
         .contact h2 {
             text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: contactTitle 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        @keyframes contactTitle {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .contact p {
             text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 50px;
+            font-size: 1.3rem;
+            margin-bottom: 60px;
             opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
         .contact-info {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            animation: contactInfoSlide 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both;
+        }
+
+        @keyframes contactInfoSlide {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .contact-info p {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
-        /* Footer */
+        /* Footer dengan animasi yang lebih kompleks */
         .footer {
-            background: linear-gradient(135deg, #1a202c, #2d3748);
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 50%, #4a5568 100%);
             color: white;
-            padding: 60px 0 30px;
+            padding: 80px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(102, 187, 106, 0.05) 0%, transparent 50%);
+            animation: footerGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes footerGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
         }
 
         .footer h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
             color: #4CAF50;
+            text-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+            animation: footerTitle 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        @keyframes footerTitle {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .footer h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #e2e8f0;
         }
 
         .footer ul {
@@ -472,28 +840,53 @@
         }
 
         .footer li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .footer a {
-            color: #e2e8f0;
+            color: #cbd5e0;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .footer a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            transition: width 0.3s ease;
+        }
+
+        .footer a:hover::before {
+            width: 100%;
         }
 
         .footer a:hover {
             color: #4CAF50;
+            transform: translateX(5px);
         }
 
         .footer .copyright {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #4a5568;
+            padding-top: 40px;
+            border-top: 2px solid rgba(76, 175, 80, 0.2);
             color: #a0aec0;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            position: relative;
+            z-index: 2;
+            animation: copyrightFade 1s ease-out 0.8s both;
         }
 
-        /* Responsive Design - Mobile First */
+        @keyframes copyrightFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design - Mobile First dengan animasi yang lebih halus */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -501,11 +894,25 @@
                 top: 70px;
                 left: 0;
                 width: 100%;
-                background: white;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
                 flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-                gap: 15px;
+                padding: 25px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+                gap: 20px;
+                border-radius: 0 0 20px 20px;
+                animation: mobileMenuSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            @keyframes mobileMenuSlide {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
 
             .nav-menu.active {
@@ -517,24 +924,36 @@
             }
 
             .hero {
-                padding: 100px 20px 60px;
+                padding: 120px 20px 80px;
             }
 
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
 
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
             }
 
             .products-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 40px;
             }
 
             .product-card {
                 max-width: 100%;
+                animation: mobileCard 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+            }
+
+            @keyframes mobileCard {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px) scale(0.95);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
             }
 
             .about-grid {
@@ -547,18 +966,26 @@
             }
 
             .container {
-                padding: 60px 20px;
+                padding: 80px 20px;
+            }
+
+            .about h2, .contact h2 {
+                font-size: 2.5rem;
+            }
+
+            .about p, .contact p {
+                font-size: 1.1rem;
             }
         }
 
         @media (max-width: 480px) {
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
             .btn-primary, .btn-secondary {
-                padding: 14px 28px;
-                font-size: 1rem;
+                padding: 16px 32px;
+                font-size: 1.1rem;
             }
 
             .product-card h3, .product-card h4 {
@@ -566,13 +993,32 @@
             }
 
             .price {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
+            }
+
+            .about-card, .contact-info {
+                padding: 40px 30px;
+            }
+
+            .footer h3 {
+                font-size: 1.5rem;
             }
         }
 
         /* Animasi untuk sections */
         .section-fade-in {
-            animation: fadeInUp 0.8s ease-out;
+            animation: sectionFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        @keyframes sectionFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Utility Classes */
@@ -586,6 +1032,18 @@
 
         .mb-40 {
             margin-bottom: 40px;
+        }
+
+        /* Scroll-triggered animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -607,7 +1065,7 @@
         Browser Anda tidak mendukung audio.
     </audio>
 
-    <!-- Navigation -->
+        <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -647,44 +1105,56 @@
             <h2 class="text-center mb-20">Best Sellers Kami</h2>
             <p class="text-center mb-40">Pilihan yang paling disukai pelanggan kami</p>
             <div class="products-grid">
-                <!-- PRODUK BEST SELLER 1: Untuk menambah/hapus produk, copy-paste div ini. Ganti nama, deskripsi, harga, foto, dan link WhatsApp -->
+                <!-- PRODUK BEST SELLER 1: Harga 40k -->
                 <div class="product-card">
-                    <!-- UBAH FOTO PRODUK: Ganti nama file di src sesuai format URL Anda (contoh: tasbunga.jpg, ecobackpack.jpg, dll.) -->
-                    <img src="https://evil-lavender-qjnw1pkvyl.edgeone.app/ecobackpack.jpg" alt="Eco Backpack">
-                    <!-- UBAH NAMA PRODUK: Edit teks nama produk -->
-                    <h3>Eco Backpack</h3>
-                    <!-- UBAH DESKRIPSI PRODUK: Edit teks deskripsi -->
-                    <p>Tas punggung ramah lingkungan dengan bahan daur ulang.</p>
+                    <img src="https://melted-beige-kum59ceopm.edgeone.app/tas%20boneka.jpg" alt="Tas Boneka">
+                    <h3>Tas Boneka</h3>
+                    <p>Tas dengan motif boneka yang lucu dan menggemaskan.</p>
                     <div class="product-footer">
-                        <!-- UBAH HARGA PRODUK: Edit harga di bawah ini -->
-                        <span class="price">Rp 450,000</span>
-                        <!-- UBAH LINK WHATSAPP PRODUK: Ganti nomor dan pesan di href -->
-                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Eco%20Backpack" class="btn-secondary" target="_blank">Pesan</a>
+                        <span class="price">Rp 40,000</span>
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Boneka" class="btn-secondary" target="_blank">Pesan</a>
                     </div>
                 </div>
-                <!-- PRODUK BEST SELLER 2 -->
+                <!-- PRODUK BEST SELLER 2: Harga 40k -->
                 <div class="product-card">
-                    <!-- UBAH FOTO PRODUK: Ganti nama file di src -->
-                    <img src="https://evil-lavender-qjnw1pkvyl.edgeone.app/sustainabletote.jpg" alt="Sustainable Tote">
-                    <h3>Sustainable Tote</h3>
-                    <p>Tas tote multifungsi dari bahan organik.</p>
+                    <img src="https://conceptual-turquoise-vvt5lycmxu.edgeone.app/tas%20bunga%20hitam.jpg" alt="Tas Bunga Hitam">
+                    <h3>Tas Bunga Hitam</h3>
+                    <p>Tas dengan motif bunga hitam yang elegan dan stylish.</p>
                     <div class="product-footer">
-                        <span class="price">Rp 250,000</span>
-                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Sustainable%20Tote" class="btn-secondary" target="_blank">Pesan</a>
+                        <span class="price">Rp 40,000</span>
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Bunga%20Hitam" class="btn-secondary" target="_blank">Pesan</a>
                     </div>
                 </div>
-                <!-- PRODUK BEST SELLER 3 -->
+                <!-- PRODUK BEST SELLER 3: Harga 40k -->
                 <div class="product-card">
-                    <!-- UBAH FOTO PRODUK: Ganti nama file di src -->
-                    <img src="https://evil-lavender-qjnw1pkvyl.edgeone.app/greencrossbody.jpg" alt="Green Crossbody">
-                    <h3>Green Crossbody</h3>
-                    <p>Tas selempang stylish dengan sentuhan hijau.</p>
+                    <img src="https://likely-white-2yw9gc0tpz.edgeone.app/tas%20emas%20H.jpg" alt="Tas Emas H">
+                    <h3>Tas Emas H</h3>
+                    <p>Tas dengan aksen emas dan desain huruf H yang unik.</p>
                     <div class="product-footer">
-                        <span class="price">Rp 350,000</span>
-                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Green%20Crossbody" class="btn-secondary" target="_blank">Pesan</a>
+                        <span class="price">Rp 40,000</span>
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Emas%20H" class="btn-secondary" target="_blank">Pesan</a>
                     </div>
                 </div>
-                <!-- TAMBAH PRODUK BARU: Copy-paste div product-card di atas untuk menambah produk best seller -->
+                <!-- PRODUK BEST SELLER 4: Harga 40k -->
+                <div class="product-card">
+                    <img src="https://native-aqua-a0pn0voruw.edgeone.app/tas%20macan%20tutul.jpg" alt="Tas Macan Tutul">
+                    <h3>Tas Macan Tutul</h3>
+                    <p>Tas dengan motif macan tutul yang wild dan fashionable.</p>
+                    <div class="product-footer">
+                        <span class="price">Rp 40,000</span>
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Macan%20Tutul" class="btn-secondary" target="_blank">Pesan</a>
+                    </div>
+                </div>
+                <!-- PRODUK BEST SELLER 5: Harga 40k -->
+                <div class="product-card">
+                    <img src="https://tasbulu.edgeone.app/tas%20bulu.jpg" alt="Tas Bulu">
+                    <h3>Tas Bulu</h3>
+                    <p>Tas dengan tekstur bulu yang lembut dan hangat.</p>
+                    <div class="product-footer">
+                        <span class="price">Rp 40,000</span>
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Bulu" class="btn-secondary" target="_blank">Pesan</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -696,42 +1166,111 @@
             <h2 class="text-center mb-20">Produk Lengkap Kami</h2>
             <p class="text-center mb-40">Jelajahi produk kami lainnya</p>
             <div class="categories">
-                <!-- KATEGORI 1: Backpacks - Untuk menambah kategori baru, copy-paste div category ini -->
+                <!-- KATEGORI 1: Tas Berbagai Motif - Harga 30k -->
                 <div class="category">
-                    <!-- UBAH NAMA KATEGORI: Edit nama kategori -->
-                    <h3>Backpacks</h3>
-                    <div class="products-grid">
-                        <!-- PRODUK DALAM KATEGORI: Copy-paste div product-card untuk menambah produk -->
-                        <div class="product-card">
-                            <!-- UBAH FOTO PRODUK: Ganti nama file di src -->
-                            <img src="https://evil-lavender-qjnw1pkvyl.edgeone.app/urbanbackpack.jpg" alt="Urban Backpack">
-                            <h4>Urban Backpack</h4>
-                            <p>Tas untuk kota dengan desain modern.</p>
-                            <div class="product-footer">
-                                <span class="price">Rp 500,000</span>
-                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Urban%20Backpack" class="btn-secondary" target="_blank">Pesan</a>
-                            </div>
-                        </div>
-                        <!-- TAMBAH PRODUK BARU DALAM KATEGORI: Copy-paste div product-card di atas -->
-                    </div>
-                </div>
-                <!-- KATEGORI 2: Tote Bags -->
-                <div class="category">
-                    <h3>Tote Bags</h3>
+                    <h3>Tas Berbagai Motif</h3>
                     <div class="products-grid">
                         <div class="product-card">
-                            <!-- UBAH FOTO PRODUK: Ganti nama file di src -->
-                            <img src="https://evil-lavender-qjnw1pkvyl.edgeone.app/ecotote.jpg" alt="Eco Tote">
-                            <h4>Eco Tote</h4>
-                            <p>Tas tote ramah lingkungan.</p>
+                            <img src="https://moaning-white-oorl7w1lha.edgeone.app/tas%20emas.jpg" alt="Tas Emas">
+                            <h4>Tas Emas</h4>
+                            <p>Tas dengan aksen emas yang mewah.</p>
                             <div class="product-footer">
-                                <span class="price">Rp 200,000</span>
-                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Eco%20Tote" class="btn-secondary" target="_blank">Pesan</a>
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Emas" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://tashitam4.edgeone.app/tas%20hitam4.jpg" alt="Tas Hitam 4">
+                            <h4>Tas Hitam 4</h4>
+                            <p>Tas hitam dengan desain modern.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Hitam%204" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://advanced-fuchsia-hlh80b4b9s.edgeone.app/tass%20hitam%20aksesoris%20hjan.jpg" alt="Tas Hitam Aksesoris Hjan">
+                            <h4>Tas Hitam Aksesoris Hjan</h4>
+                            <p>Tas hitam dengan aksesoris unik.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Hitam%20Aksesoris%20Hjan" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://juicy-yellow-nn2njjmdmt.edgeone.app/tass%20coklat%20bergaris.jpg" alt="Tas Coklat Bergaris">
+                            <h4>Tas Coklat Bergaris</h4>
+                            <p>Tas coklat dengan motif bergaris.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Coklat%20Bergaris" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://musical-amber-qdnb6i2qiu.edgeone.app/tas%20kuning%20polos.jpg" alt="Tas Kuning Polos">
+                            <h4>Tas Kuning Polos</h4>
+                            <p>Tas kuning dengan desain polos.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Kuning%20Polos" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://capable-gray-ifijea0hyr.edgeone.app/tas%20kuning%20corak.jpg" alt="Tas Kuning Corak">
+                            <h4>Tas Kuning Corak</h4>
+                            <p>Tas kuning dengan corak menarik.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Kuning%20Corak" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://curly-amber-zwybxnhmch.edgeone.app/tas%20hitam%20sleting3.jpg" alt="Tas Hitam Sleting 3">
+                            <h4>Tas Hitam Sleting 3</h4>
+                            <p>Tas hitam dengan sleting tiga.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Hitam%20Sleting%203" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://suspicious-purple-9hm1vd5hyg.edgeone.app/tas%20hitam%20putih%20sleting.jpg" alt="Tas Hitam Putih Sleting">
+                            <h4>Tas Hitam Putih Sleting</h4>
+                            <p>Tas hitam putih dengan sleting.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Hitam%20Putih%20Sleting" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://shiny-indigo-cjrrdgmslk.edgeone.app/tas%20hitam%20sleting%20dua.jpg" alt="Tas Hitam Sleting Dua">
+                            <h4>Tas Hitam Sleting Dua</h4>
+                            <p>Tas hitam dengan dua sleting.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Hitam%20Sleting%20Dua" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://mid-green-410rebwzoi.edgeone.app/tas%20hitam%20sleting.jpg" alt="Tas Hitam Sleting">
+                            <h4>Tas Hitam Sleting</h4>
+                            <p>Tas hitam dengan sleting praktis.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Hitam%20Sleting" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <img src="https://grotesque-aqua-oqksp0fg8h.edgeone.app/tas%20kuning.jpg" alt="Tas Kuning">
+                            <h4>Tas Kuning</h4>
+                            <p>Tas kuning yang cerah dan menarik.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 30,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Tas%20Kuning" class="btn-secondary" target="_blank">Pesan</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- TAMBAH KATEGORI BARU: Copy-paste div category di atas untuk kategori baru -->
             </div>
         </div>
     </section>
@@ -779,7 +1318,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <!-- UBAH NAMA BRAND DI FOOTER: Edit nama brand -->
+                                        <!-- UBAH NAMA BRAND DI FOOTER: Edit nama brand -->
                     <h3>GREENGENZ BAG</h3>
                     <!-- UBAH DESKRIPSI FOOTER: Edit deskripsi -->
                     <p>Gaya berkelanjutan berpadu dengan fungsionalitas modern. Tunjukkan identitas Anda dengan tas yang peduli terhadap bumi.</p>
@@ -914,6 +1453,56 @@
                 }
             });
         });
+
+        // Scroll-triggered animations untuk elemen individual
+        const scrollObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -10px 0px'
+        });
+
+        // Observe elemen dengan class scroll-reveal
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        // Tambahkan efek parallax pada background hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.backgroundPositionY = -(scrolled * 0.5) + 'px';
+            }
+        });
+
+        // Efek hover pada product cards dengan delay
+        document.querySelectorAll('.product-card').forEach((card, index) => {
+            card.style.animationDelay = (index * 0.1) + 's';
+        });
+
+        // Auto-play video jika ada (untuk future enhancement)
+        // const videos = document.querySelectorAll('video');
+        // videos.forEach(video => {
+        //     video.addEventListener('canplay', function() {
+        //         this.play();
+        //     });
+        // });
+
+        // Prevent right-click untuk melindungi konten (opsional)
+        // document.addEventListener('contextmenu', function(e) {
+        //     e.preventDefault();
+        // });
+
+        // Analytics tracking (opsional - bisa ditambahkan Google Analytics)
+        // function trackPageView() {
+        //     // Implementasi tracking
+        // }
+        // trackPageView();
     </script>
 </body>
 </html>
