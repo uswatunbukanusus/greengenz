@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREENGENZ BAG - Carry Your Style, Express Your Identity</title>
+    <style>
+        /* Reset dan Font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtitle {
+            font-size: 1rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo h1 {
+            color: #4CAF50;
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-link {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active, .nav-link:hover {
+            color: #4CAF50;
+        }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f9f0 0%, #e8f5e8 100%);
+            padding-top: 70px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero span {
+            color: #4CAF50;
+        }
+
+        /* Buttons */
+        .btn-primary, .btn-secondary {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            background: #45a049;
+        }
+
+        .btn-secondary {
+            background: #66BB6A;
+        }
+
+        /* Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card h3, .product-card h4 {
+            margin: 15px;
+            color: #333;
+        }
+
+        .product-card p {
+            margin: 0 15px 15px;
+            color: #666;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2E7D32;
+            color: white;
+            padding: 40px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer ul {
+            list-style: none;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <!-- UBAH TEKS LOADING: Edit teks di bawah ini jika ingin mengubah nama brand atau slogan -->
+            <h1 class="loading-title">GREENGENZ BAG</h1>
+            <p class="loading-subtitle">"Carry Your Style, Express Your Identity"</p>
+        </div>
+    </div>
+
+    <!-- Background Audio -->
+    <!-- UBAH BACKSOUND: Ganti src dengan URL backsound menenangkan Anda (pastikan URL valid dan file audio) -->
+    <audio id="background-audio" loop>
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
+        Browser Anda tidak mendukung audio.
+    </audio>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <!-- UBAH NAMA BRAND: Edit teks di bawah ini untuk mengubah nama brand -->
+                <h1>GREENGENZ BAG</h1>
+                <p>Carry Your Style</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#produk" class="nav-link">Produk</a></li>
+                <li><a href="#tentang" class="nav-link">Tentang Kami</a></li>
+                <li><a href="#kontak" class="nav-link">Kontak</a></li>
+            </ul>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <!-- UBAH TEKS HERO: Edit teks sambutan di bawah ini -->
+            <h1>SELAMAT DATANG DI <span>GREENGENZ BAG</span></h1>
+            <p>"Carry Your Style, Express Your Identity"</p>
+            <!-- UBAH LINK WHATSAPP HERO: Ganti nomor WhatsApp di href (format: https://wa.me/62xxxxxxxxx?text=pesan) -->
+            <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20produk%20GREENGENZ%20BAG" class="btn-primary" target="_blank">Pesan Sekarang Disini</a>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="best-sellers">
+        <div class="container">
+            <!-- UBAH TEKS BEST SELLERS: Edit judul dan deskripsi di bawah ini -->
+            <h2>Best Sellers Kami</h2>
+            <p>Pilihan yang paling disukai pelanggan kami</p>
+            <div class="products-grid">
+                <!-- PRODUK BEST SELLER 1: Untuk menambah/hapus produk, copy-paste div ini. Ganti nama, deskripsi, harga, foto, dan link WhatsApp -->
+                <div class="product-card">
+                    <!-- UBAH FOTO PRODUK: Ganti src dengan URL foto produk Anda (pastikan URL valid) -->
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop" alt="Eco Backpack">
+                    <!-- UBAH NAMA PRODUK: Edit teks nama produk -->
+                    <h3>Eco Backpack</h3>
+                    <!-- UBAH DESKRIPSI PRODUK: Edit teks deskripsi -->
+                    <p>Tas punggung ramah lingkungan dengan bahan daur ulang.</p>
+                    <div class="product-footer">
+                        <!-- UBAH HARGA PRODUK: Edit harga di bawah ini -->
+                        <span class="price">Rp 450,000</span>
+                        <!-- UBAH LINK WHATSAPP PRODUK: Ganti nomor dan pesan di href -->
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Eco%20Backpack" class="btn-secondary" target="_blank">Pesan</a>
+                    </div>
+                </div>
+                <!-- PRODUK BEST SELLER 2 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop" alt="Sustainable Tote">
+                    <h3>Sustainable Tote</h3>
+                    <p>Tas tote multifungsi dari bahan organik.</p>
+                    <div class="product-footer">
+                        <span class="price">Rp 250,000</span>
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Sustainable%20Tote" class="btn-secondary" target="_blank">Pesan</a>
+                    </div>
+                </div>
+                <!-- PRODUK BEST SELLER 3 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=300&fit=crop" alt="Green Crossbody">
+                    <h3>Green Crossbody</h3>
+                    <p>Tas selempang stylish dengan sentuhan hijau.</p>
+                    <div class="product-footer">
+                        <span class="price">Rp 350,000</span>
+                        <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Green%20Crossbody" class="btn-secondary" target="_blank">Pesan</a>
+                    </div>
+                </div>
+                <!-- TAMBAH PRODUK BARU: Copy-paste div product-card di atas untuk menambah produk best seller -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Produk Section -->
+    <section id="produk" class="products">
+        <div class="container">
+            <!-- UBAH TEKS PRODUK: Edit judul dan deskripsi di bawah ini -->
+            <h2>Produk Lengkap Kami</h2>
+            <p>Jelajahi produk kami lainnya</p>
+            <div class="categories">
+                <!-- KATEGORI 1: Backpacks - Untuk menambah kategori baru, copy-paste div category ini -->
+                <div class="category">
+                    <!-- UBAH NAMA KATEGORI: Edit nama kategori -->
+                    <h3>Backpacks</h3>
+                    <div class="products-grid">
+                        <!-- PRODUK DALAM KATEGORI: Copy-paste div product-card untuk menambah produk -->
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1622260613186-76c1e01b5b56?w=400&h=300&fit=crop" alt="Urban Backpack">
+                            <h4>Urban Backpack</h4>
+                            <p>Tas untuk kota dengan desain modern.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 500,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Urban%20Backpack" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                        <!-- TAMBAH PRODUK BARU DALAM KATEGORI: Copy-paste div product-card di atas -->
+                    </div>
+                </div>
+                <!-- KATEGORI 2: Tote Bags -->
+                <div class="category">
+                    <h3>Tote Bags</h3>
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop" alt="Eco Tote">
+                            <h4>Eco Tote</h4>
+                            <p>Tas tote ramah lingkungan.</p>
+                            <div class="product-footer">
+                                <span class="price">Rp 200,000</span>
+                                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20memesan%20Eco%20Tote" class="btn-secondary" target="_blank">Pesan</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- TAMBAH KATEGORI BARU: Copy-paste div category di atas untuk kategori baru -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Section -->
+    <section id="tentang" class="about">
+        <div class="container">
+            <!-- UBAH TEKS TENTANG: Edit judul dan deskripsi di bawah ini -->
+            <h2>Tentang GREENGENZ BAG</h2>
+            <p>GREENGENZ BAG berawal dari inisiatif untuk menciptakan tas ramah lingkungan yang memadukan keberlanjutan dengan desain modern. Kami berkomitmen untuk planet dan gaya hidup hijau.</p>
+            <div class="about-grid">
+                <div class="about-card">
+                    <!-- UBAH VISI: Edit teks visi -->
+                    <h3>Visi Kami</h3>
+                    <p>Menjadi penyedia tas berkelanjutan terkemuka yang memberdayakan orang untuk mengekspresikan identitas unik mereka sambil merawat planet kita.</p>
+                </div>
+                <div class="about-card">
+                    <!-- UBAH MISI: Edit teks misi -->
+                    <h3>Misi Kami</h3>
+                    <p>Kami menciptakan tas berkualitas tinggi dan ramah lingkungan menggunakan bahan-bahan berkelanjutan dan praktik etis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section id="kontak" class="contact">
+        <div class="container">
+            <!-- UBAH TEKS KONTAK: Edit judul dan deskripsi di bawah ini -->
+            <h2>HAI HAI</h2>
+            <p>Sudah menemukan tas yang cocok? Kontak kami sekarang!</p>
+            <div class="contact-info">
+                <!-- UBAH NOMOR WHATSAPP: Edit nomor di bawah ini -->
+                <p>WhatsApp: 08119155915</p>
+                <!-- UBAH JAM KERJA: Edit jam kerja di bawah ini -->
+                <p>Jam Kerja: 24 Jam Setiap Hari</p>
+                <!-- UBAH LINK WHATSAPP KONTAK: Ganti nomor dan pesan di href -->
+                <a href="https://wa.me/628119155915?text=Assalamualaikum,%20saya%20ingin%20bertanya%20tentang%20produk%20GREENGENZ%20BAG" class="btn-primary" target="_blank">Kontak Kami Disini</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <!-- UBAH NAMA BRAND DI FOOTER: Edit nama brand -->
+                    <h3>GREENGENZ BAG</h3>
+                    <!-- UBAH DESKRIPSI FOOTER: Edit deskripsi -->
+                    <p>Gaya berkelanjutan berpadu dengan fungsionalitas modern. Tunjukkan identitas Anda dengan tas yang peduli terhadap bumi.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#produk">Produk Kami</a></li>
+                        <li><a href="#tentang">Tentang Kami</a></li>
+                        <li><a href="#kontak">Kontak</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>WhatsApp: 08119155915</li>
+                        <li>Buka: 24 jam</li>
+                        <li>Setiap Hari</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+                <p>&copy; 2024 GREENGENZ BAG. All rights reserved. Made with 💚 for eco-conscious style.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 2000); // 2 detik loading
+        });
+
+        // Backsound
+        document.addEventListener('DOMContentLoaded', function() {
+            const audio = document.getElementById('background-audio');
+            audio.volume = 0.3; // Volume rendah agar tidak mengganggu
+            audio.play().catch(e => console.log('Audio autoplay blocked'));
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile Menu Toggle (jika diperlukan)
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
